@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    golang的web交互 | SENSITIVEHULK.COM
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="https://hulkxu.github.io/post/golang/web_interactive/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="https://hulkxu.github.ioindex.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+  <link href="https://hulkxu.github.ioindex.xml" rel="feed" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="https://hulkxu.github.io">SENSITIVEHULK.COM</a></h1>
+        <h2>I would like to be a layer 3 switch.</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          
+          <li><a href="https://github.com/hulkxu" target="_blank">GitHub</a></li>
+          <li><a href="https://hulkxu.github.ioindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>golang的web交互</h1>
+      <div class="meta">
+        May 10, 2016 &nbsp;
+        
+          #<a href="/tags/development">Development</a>&nbsp;
+        
+          #<a href="/tags/golang">golang</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<blockquote>
+<p>工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求</p>
+</blockquote>
+
+<h2 id="查看web的数据交互:6fd962745850b05113455789d534250f">查看web的数据交互</h2>
+
+<p>若需要golang实现浏览器里的一些操作,如登录,查询等操作.需要详细的指导客户端与服务器详细的交互数据。chrome浏览器的开发者工具可以很详细的查看。</p>
+
+<p>比如网站的登录操作，可以查看到以下数据交换：</p>
+
+<p><img src="/media/login_info.png" alt="登录信息" /></p>
+
+<p><img src="/media/login_info2.png" alt="登录信息" /></p>
+
+<h2 id="对应的golang代码为:6fd962745850b05113455789d534250f">对应的golang代码为：</h2>
+
+<ul>
+<li><p>添加表单数据</p>
+
+<pre><code>sendform := url.Values{}
+sendform.Add(&quot;action&quot;, &quot;ExecuteQuery&quot;)
+sendform.Add(&quot;resourceId&quot;, &quot;cq.repo.cq-query:&quot;+queryid+&quot;@SPRDCSS/SPCSS&quot;)
+sendform.Add(&quot;format&quot;, &quot;JSON&quot;)
+//sendform.Add(&quot;rowCount&quot;, &quot;20&quot;)
+sendform.Add(&quot;cquid&quot;, cqUid)
+sendform.Add(&quot;refresh&quot;, &quot;true&quot;)
+</code></pre></li>
+
+<li><p>创建http请求，设置请求头相关数据</p>
+
+<pre><code>reqest, err := http.NewRequest(&quot;POST&quot;,URL, strings.NewReader(sendform.Encode()))
+if err != nil {
+    fmt.Println(&quot;Fatal error &quot;, err.Error())
+    return false
+}
+
+
+reqest.Header.Set(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)
+reqest.Header.Set(&quot;Content-Length&quot;, &quot;202&quot;)
+reqest.Header.Set(&quot;Accept&quot;, &quot;*/*&quot;)
+reqest.Header.Set(&quot;Accept-Encoding&quot;, &quot;gzip, deflate&quot;)
+reqest.Header.Set(&quot;Accept-Language&quot;, &quot;zh-CN,zh;q=0.8,en;q=0.6&quot;)
+reqest.Header.Set(&quot;Connection&quot;, &quot;keep-alive&quot;)
+reqest.Header.Set(&quot;Host&quot;, &quot;spcss.spreadtrum.com:2008&quot;)
+reqest.Header.Set(&quot;Origin&quot;, &quot;http://spcss.xxxxx.com:2008&quot;)
+reqest.Header.Set(&quot;Referer&quot;, &quot;http://spcss.xxxxx.com:2008/cqweb/&quot;)
+</code></pre></li>
+
+<li><p>执行请求，cookies相关数据也自动保存在client中。处理response数据</p>
+
+<pre><code>gCookieJar, _ = cookiejar.New(nil)
+CLIENT= &amp;http.Client{
+    CheckRedirect: nil,
+    Jar:   gCookieJar}
+response, err := CLIENT.Do(reqest)
+defer response.Body.Close()
+if err != nil {
+    fmt.Println(&quot;Fatal error &quot;, err.Error())
+    return false
+}
+if response.StatusCode == 200 {
+    //get response
+} else {
+    fmt.Println(&quot;server err:&quot;, response.StatusCode)
+}
+</code></pre></li>
+</ul>
+
+      
+      
+      
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside>
+
+<script type="text/javascript">
+     
+
+    var disqus_shortname = 'sensitivehulk';
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="https://hulkxu.github.io/post/golang/golang_worktool/" rel="prev">golang的应用--工作工具</a></span>
+    
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="/images/profile.png" width="64" height="64"><br>
+      Written by Sensitive Hulk
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

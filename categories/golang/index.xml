@@ -6,8 +6,86 @@
     <description>Recent content in Golang on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 09 May 2016 16:57:54 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
     <atom:link href="https://hulkxu.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>golang的web交互</title>
+      <link>https://hulkxu.github.io/post/golang/web_interactive/</link>
+      <pubDate>Tue, 10 May 2016 14:35:50 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/post/golang/web_interactive/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;查看web的数据交互:6fd962745850b05113455789d534250f&#34;&gt;查看web的数据交互&lt;/h2&gt;
+
+&lt;p&gt;若需要golang实现浏览器里的一些操作,如登录,查询等操作.需要详细的指导客户端与服务器详细的交互数据。chrome浏览器的开发者工具可以很详细的查看。&lt;/p&gt;
+
+&lt;p&gt;比如网站的登录操作，可以查看到以下数据交换：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;添加表单数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sendform := url.Values{}
+sendform.Add(&amp;quot;action&amp;quot;, &amp;quot;ExecuteQuery&amp;quot;)
+sendform.Add(&amp;quot;resourceId&amp;quot;, &amp;quot;cq.repo.cq-query:&amp;quot;+queryid+&amp;quot;@SPRDCSS/SPCSS&amp;quot;)
+sendform.Add(&amp;quot;format&amp;quot;, &amp;quot;JSON&amp;quot;)
+//sendform.Add(&amp;quot;rowCount&amp;quot;, &amp;quot;20&amp;quot;)
+sendform.Add(&amp;quot;cquid&amp;quot;, cqUid)
+sendform.Add(&amp;quot;refresh&amp;quot;, &amp;quot;true&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;创建http请求，设置请求头相关数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;reqest, err := http.NewRequest(&amp;quot;POST&amp;quot;,URL, strings.NewReader(sendform.Encode()))
+if err != nil {
+    fmt.Println(&amp;quot;Fatal error &amp;quot;, err.Error())
+    return false
+}
+
+
+reqest.Header.Set(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/x-www-form-urlencoded&amp;quot;)
+reqest.Header.Set(&amp;quot;Content-Length&amp;quot;, &amp;quot;202&amp;quot;)
+reqest.Header.Set(&amp;quot;Accept&amp;quot;, &amp;quot;*/*&amp;quot;)
+reqest.Header.Set(&amp;quot;Accept-Encoding&amp;quot;, &amp;quot;gzip, deflate&amp;quot;)
+reqest.Header.Set(&amp;quot;Accept-Language&amp;quot;, &amp;quot;zh-CN,zh;q=0.8,en;q=0.6&amp;quot;)
+reqest.Header.Set(&amp;quot;Connection&amp;quot;, &amp;quot;keep-alive&amp;quot;)
+reqest.Header.Set(&amp;quot;Host&amp;quot;, &amp;quot;spcss.spreadtrum.com:2008&amp;quot;)
+reqest.Header.Set(&amp;quot;Origin&amp;quot;, &amp;quot;http://spcss.xxxxx.com:2008&amp;quot;)
+reqest.Header.Set(&amp;quot;Referer&amp;quot;, &amp;quot;http://spcss.xxxxx.com:2008/cqweb/&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;执行请求，cookies相关数据也自动保存在client中。处理response数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gCookieJar, _ = cookiejar.New(nil)
+CLIENT= &amp;amp;http.Client{
+    CheckRedirect: nil,
+    Jar:   gCookieJar}
+response, err := CLIENT.Do(reqest)
+defer response.Body.Close()
+if err != nil {
+    fmt.Println(&amp;quot;Fatal error &amp;quot;, err.Error())
+    return false
+}
+if response.StatusCode == 200 {
+    //get response
+} else {
+    fmt.Println(&amp;quot;server err:&amp;quot;, response.StatusCode)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>golang的应用--工作工具</title>
