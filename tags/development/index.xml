@@ -5,7 +5,7 @@
     <link>https://hulkxu.github.io/tags/development/</link>
     <description>Recent content in Development on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
+    <language>zh</language>
     <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
     <atom:link href="https://hulkxu.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,7 +18,7 @@
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求&lt;/p&gt;
+&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&#34;查看web的数据交互:6fd962745850b05113455789d534250f&#34;&gt;查看web的数据交互&lt;/h2&gt;
@@ -94,7 +94,7 @@ if response.StatusCode == 200 {
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具&lt;/p&gt;
+&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&#34;批量bug导入:9e88b0463a278732711ab851a4acb3d9&#34;&gt;批量Bug导入&lt;/h2&gt;
