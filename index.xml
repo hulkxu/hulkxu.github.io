@@ -279,18 +279,15 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     </item>
     
     <item>
-      <title>about</title>
-      <link>https://hulkxu.github.io/about/about/</link>
-      <pubDate>Tue, 03 May 2016 13:44:48 +0800</pubDate>
+      <title>关于我</title>
+      <link>https://hulkxu.github.io/about/</link>
+      <pubDate>Sun, 03 May 2015 13:44:48 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/about/about/</guid>
-      <description>
-
-&lt;h1 id=&#34;关于我:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;关于我&lt;/h1&gt;
-
-&lt;ul&gt;
+      <guid>https://hulkxu.github.io/about/</guid>
+      <description>&lt;ul&gt;
 &lt;li&gt;2011  毕业与西安电子科技大学&lt;/li&gt;
-&lt;li&gt;2016  上海，Android(MultiMedia)，Golang&lt;/li&gt;
+&lt;li&gt;2016  上海，工作于一家手机芯片公司，主业在Android(MultiMedia)，关注OpenSouce，对Golang感兴趣。&lt;/li&gt;
+&lt;li&gt;平时爱好篮球。有几件想做的事：学好摄像，练好书法。&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
