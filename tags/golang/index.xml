@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on SENSITIVEHULK.COM</title>
-    <link>http://sensitivehulk.com/tags/golang/</link>
+    <link>https://hulkxu.github.io/tags/golang/</link>
     <description>Recent content in Golang on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Mon, 09 May 2016 16:57:54 +0800</lastBuildDate>
-    <atom:link href="http://sensitivehulk.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://hulkxu.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang的应用--工作工具</title>
-      <link>http://sensitivehulk.com/post/golang/golang_worktool/</link>
+      <link>https://hulkxu.github.io/post/golang/golang_worktool/</link>
       <pubDate>Mon, 09 May 2016 16:57:54 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/golang_worktool/</guid>
+      <guid>https://hulkxu.github.io/post/golang/golang_worktool/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -82,10 +82,10 @@ for e := buglist.Front(); e != nil; e = e.Next() {
     
     <item>
       <title>hugo创建个人Blog网站</title>
-      <link>http://sensitivehulk.com/post/golang/hugotest/</link>
+      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
       <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/hugotest/</guid>
+      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
       <description>
 
 &lt;p&gt;Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤：&lt;/p&gt;
@@ -110,7 +110,7 @@ for e := buglist.Front(); e != nil; e = e.Next() {
 &lt;li&gt;设置disqus为中文:进入“Configure Disqus for Your Site”&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://sensitivehulk.com/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
