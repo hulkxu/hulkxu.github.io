@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on SENSITIVEHULK.COM</title>
-    <link>https://hulkxu.github.io/post/</link>
+    <link>http://sensitivehulk.com/post/</link>
     <description>Recent content in Posts on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Mon, 09 May 2016 16:57:54 +0800</lastBuildDate>
-    <atom:link href="https://hulkxu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://sensitivehulk.com/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang的应用--工作工具</title>
-      <link>https://hulkxu.github.io/post/golang/golang_worktool/</link>
+      <link>http://sensitivehulk.com/post/golang/golang_worktool/</link>
       <pubDate>Mon, 09 May 2016 16:57:54 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/golang_worktool/</guid>
+      <guid>http://sensitivehulk.com/post/golang/golang_worktool/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -81,12 +81,36 @@ for e := buglist.Front(); e != nil; e = e.Next() {
     </item>
     
     <item>
-      <title>hugo test</title>
-      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
+      <title>hugo创建个人Blog网站</title>
+      <link>http://sensitivehulk.com/post/golang/hugotest/</link>
       <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
-      <description>&lt;p&gt;这是使用Hugo创建的站点中的第一篇文章。&lt;/p&gt;
+      <guid>http://sensitivehulk.com/post/golang/hugotest/</guid>
+      <description>
+
+&lt;p&gt;Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;用markdown写好文章（不用过分关注文章格式，排版，注重到文章内容。）&lt;/li&gt;
+&lt;li&gt;选好theme，执行命令生成静态网页（可以选用不同的theme或者其他相关组件如评论分享等）&lt;/li&gt;
+&lt;li&gt;将网页提交到github（无需部署服务器）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;markdown:347c3bb565fbefc355c0b20330d98136&#34;&gt;Markdown&lt;/h2&gt;
+
+&lt;p&gt;markdown语法见&lt;a href=&#34;http://wowubuntu.com/markdown/&#34;&gt;链接&lt;/a&gt;。这里不多做赘述。&lt;/p&gt;
+
+&lt;h2 id=&#34;hugo:347c3bb565fbefc355c0b20330d98136&#34;&gt;Hugo&lt;/h2&gt;
+
+&lt;p&gt;官方网站见&lt;a href=&#34;http://gohugo.io/&#34;&gt;链接&lt;/a&gt;,中文网站见&lt;a href=&#34;http://www.gohugo.org/&#34;&gt;链接&lt;/a&gt;
+相关文档已经非常清楚，这里主要说下自己在使用过程中遇到的一些问题：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;theme选择为&lt;a href=&#34;https://github.com/tanksuzuki/angels-ladder&#34;&gt;angels-ladder&lt;/a&gt;，设计简单，支持tag,支持代码高亮，支持disqus评论。&lt;/li&gt;
+&lt;li&gt;设置disqus为中文:进入“Configure Disqus for Your Site”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://sensitivehulk.com/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
