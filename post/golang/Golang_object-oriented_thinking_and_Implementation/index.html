@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    golang的面向对象编程特性 | SENSITIVEHULK.COM
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="https://hulkxu.github.ioindex.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+  <link href="https://hulkxu.github.ioindex.xml" rel="feed" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="https://hulkxu.github.io">SENSITIVEHULK.COM</a></h1>
+        <h2>I would like to be a layer 3 switch.</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          
+          <li><a href="https://github.com/hulkxu" target="_blank">GitHub</a></li>
+          <li><a href="https://hulkxu.github.ioindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>golang的面向对象编程特性</h1>
+      <div class="meta">
+        May 4, 2016 &nbsp;
+        
+          #<a href="/tags/development">Development</a>&nbsp;
+        
+          #<a href="/tags/golang">golang</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<blockquote>
+<p>golang也可以实现面向对象编程。主要是通过struct和interface来实现的。</p>
+</blockquote>
+
+<h2 id="继承:132e4b9b48dc618261cb0fdc11cb083c">继承</h2>
+
+<p>继承在golang上称为组合（composition）</p>
+
+<pre><code>type Drugweb struct {
+    Webopration   IWebOpration
+    webclient *http.Client
+    Webname   string
+    WebAppIdSearchUrl string
+    WebKeySearchUrl   string
+    WebUrlPrefix  string
+    tagslist  []string
+    unusetaglist  []string
+}
+
+type BaidujkWeb struct {
+    Drugweb
+}
+</code></pre>
+
+<ul>
+<li>这里在BaidujkWeb里声明了Drugweb,表示组合（继承）了Drugweb的属性和方法。可以直接操作Drugweb的属性和方法。</li>
+</ul>
+
+<p>如果BaidjkWeb也有Drugweb相同的属性和方法。比如:</p>
+
+<pre><code>baidujk := new(BaidujkWeb)
+//若BaidujkWeb也有Webname属性，则这里是操作BaidujkWeb的属性
+//若BaidujkWeb没有Webname属性，则这里操作Drugweb的属性
+baidujk.Webname = &quot;baidu&quot;
+
+//也可以直接指定操作Drugweb属性
+baidujk.Drugweb.webname = &quot;baidu&quot;
+</code></pre>
+
+<h2 id="方法重载:132e4b9b48dc618261cb0fdc11cb083c">方法重载</h2>
+
+<p>golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。</p>
+
+<pre><code>func (Drugweb *web) recite(v ...interface{}) {
+    fmt.Println(v)
+}
+</code></pre>
+
+<h2 id="接口interface:132e4b9b48dc618261cb0fdc11cb083c">接口interface</h2>
+
+<p>接口是一个或多个方法签名的集合，任何类型的方法集中只要拥有与之对应的全部方法，
+就表示它&rdquo;实现&rdquo;了该接口无须在该类型上显式添加接口声明。</p>
+
+<p>所谓对应方法，是指有相同名称、参数列表 (不包括参数名) 以及返回值。当然，该类型还可以有其他方法。</p>
+
+<p>比如一个web若要有一些操作，可以定义接口为：</p>
+
+<pre><code>type IWebOpration interface {
+    InitDrugweb() *Drugweb
+    GetHttpRequest(weburl string) *http.Request
+    PaserItemHtmlBody(bodystring string) *druginfo.DrugInfo
+    PaserApproveIdSearchResultHtmlBody(bodystring string) string
+    PaserKeywordsSearchResultHtmlBody(bodystring string) string
+    GetSearchUrlWithApproveId(appid string) string
+    GetSearchUrlWithKeywords(keywords []string) string
+}
+
+func GetWebSourceListSupportItemurl() []IWebOpration {
+    weblist := make([]IWebOpration, 0)
+    //这里BaidujkWeb,Yao360Web等实现了IWebOpration方法
+    weblist = append(weblist, new(BaidujkWeb))
+    weblist = append(weblist, new(Yao360Web))
+    weblist = append(weblist, new(Kad360Web))
+    weblist = append(weblist, new(JiankeWeb))
+    return weblist
+}
+</code></pre>
+
+      
+      
+      
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside>
+
+<script type="text/javascript">
+     
+
+    var disqus_shortname = 'sensitivehulk';
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="https://hulkxu.github.io/post/golang/hugotest/" rel="prev">hugo创建个人Blog网站</a></span>
+    
+    
+      <span class="next"><a href="https://hulkxu.github.io/post/golang/golang_worktool/" rel="next">golang的应用--工作工具</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="/images/profile.png" width="64" height="64"><br>
+      Written by Sensitive Hulk
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

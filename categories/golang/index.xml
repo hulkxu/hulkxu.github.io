@@ -52,15 +52,13 @@ if err != nil {
     fmt.Println(&amp;quot;Fatal error &amp;quot;, err.Error())
     return false
 }
-
-
 reqest.Header.Set(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/x-www-form-urlencoded&amp;quot;)
 reqest.Header.Set(&amp;quot;Content-Length&amp;quot;, &amp;quot;202&amp;quot;)
 reqest.Header.Set(&amp;quot;Accept&amp;quot;, &amp;quot;*/*&amp;quot;)
 reqest.Header.Set(&amp;quot;Accept-Encoding&amp;quot;, &amp;quot;gzip, deflate&amp;quot;)
 reqest.Header.Set(&amp;quot;Accept-Language&amp;quot;, &amp;quot;zh-CN,zh;q=0.8,en;q=0.6&amp;quot;)
 reqest.Header.Set(&amp;quot;Connection&amp;quot;, &amp;quot;keep-alive&amp;quot;)
-reqest.Header.Set(&amp;quot;Host&amp;quot;, &amp;quot;spcss.spreadtrum.com:2008&amp;quot;)
+reqest.Header.Set(&amp;quot;Host&amp;quot;, &amp;quot;spcss.xxxxxx.com:2008&amp;quot;)
 reqest.Header.Set(&amp;quot;Origin&amp;quot;, &amp;quot;http://spcss.xxxxx.com:2008&amp;quot;)
 reqest.Header.Set(&amp;quot;Referer&amp;quot;, &amp;quot;http://spcss.xxxxx.com:2008/cqweb/&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
@@ -153,6 +151,94 @@ for e := buglist.Front(); e != nil; e = e.Next() {
         idlist.PushBack(result.Response)
         fmt.Printf(&amp;quot;bugzilla id: %d ：%s \n&amp;quot;, result.Response, bug.Summary)
     }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>golang的面向对象编程特性</title>
+      <link>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</link>
+      <pubDate>Wed, 04 May 2016 14:35:50 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;golang也可以实现面向对象编程。主要是通过struct和interface来实现的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;继承:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;继承&lt;/h2&gt;
+
+&lt;p&gt;继承在golang上称为组合（composition）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type Drugweb struct {
+    Webopration   IWebOpration
+    webclient *http.Client
+    Webname   string
+    WebAppIdSearchUrl string
+    WebKeySearchUrl   string
+    WebUrlPrefix  string
+    tagslist  []string
+    unusetaglist  []string
+}
+
+type BaidujkWeb struct {
+    Drugweb
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;这里在BaidujkWeb里声明了Drugweb,表示组合（继承）了Drugweb的属性和方法。可以直接操作Drugweb的属性和方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果BaidjkWeb也有Drugweb相同的属性和方法。比如:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baidujk := new(BaidujkWeb)
+//若BaidujkWeb也有Webname属性，则这里是操作BaidujkWeb的属性
+//若BaidujkWeb没有Webname属性，则这里操作Drugweb的属性
+baidujk.Webname = &amp;quot;baidu&amp;quot;
+
+//也可以直接指定操作Drugweb属性
+baidujk.Drugweb.webname = &amp;quot;baidu&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;方法重载:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;方法重载&lt;/h2&gt;
+
+&lt;p&gt;golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;func (Drugweb *web) recite(v ...interface{}) {
+    fmt.Println(v)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;接口interface:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;接口interface&lt;/h2&gt;
+
+&lt;p&gt;接口是一个或多个方法签名的集合，任何类型的方法集中只要拥有与之对应的全部方法，
+就表示它&amp;rdquo;实现&amp;rdquo;了该接口无须在该类型上显式添加接口声明。&lt;/p&gt;
+
+&lt;p&gt;所谓对应方法，是指有相同名称、参数列表 (不包括参数名) 以及返回值。当然，该类型还可以有其他方法。&lt;/p&gt;
+
+&lt;p&gt;比如一个web若要有一些操作，可以定义接口为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type IWebOpration interface {
+    InitDrugweb() *Drugweb
+    GetHttpRequest(weburl string) *http.Request
+    PaserItemHtmlBody(bodystring string) *druginfo.DrugInfo
+    PaserApproveIdSearchResultHtmlBody(bodystring string) string
+    PaserKeywordsSearchResultHtmlBody(bodystring string) string
+    GetSearchUrlWithApproveId(appid string) string
+    GetSearchUrlWithKeywords(keywords []string) string
+}
+
+func GetWebSourceListSupportItemurl() []IWebOpration {
+    weblist := make([]IWebOpration, 0)
+    //这里BaidujkWeb,Yao360Web等实现了IWebOpration方法
+    weblist = append(weblist, new(BaidujkWeb))
+    weblist = append(weblist, new(Yao360Web))
+    weblist = append(weblist, new(Kad360Web))
+    weblist = append(weblist, new(JiankeWeb))
+    return weblist
 }
 &lt;/code&gt;&lt;/pre&gt;
 </description>
