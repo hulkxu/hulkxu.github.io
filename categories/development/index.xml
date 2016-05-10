@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development on SENSITIVEHULK.COM</title>
+    <link>https://hulkxu.github.io/categories/development/</link>
+    <description>Recent content in Development on SENSITIVEHULK.COM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 09 May 2016 16:57:54 +0800</lastBuildDate>
+    <atom:link href="https://hulkxu.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>golang的应用--工作工具</title>
+      <link>https://hulkxu.github.io/post/golang/golang_worktool/</link>
+      <pubDate>Mon, 09 May 2016 16:57:54 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/post/golang/golang_worktool/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;批量bug导入:9e88b0463a278732711ab851a4acb3d9&#34;&gt;批量Bug导入&lt;/h2&gt;
+
+&lt;p&gt;Bugzilla系统可以通过&lt;a href=&#34;https://en.wikipedia.org/wiki/XML-RPC&#34;&gt;XML-RPC&lt;/a&gt;协议将bug提交到系统中。golang中没有XML-RPC的库，所以只有寻找相关开源代码。从Github中找到&lt;a href=&#34;https://github.com/kolo/xmlrpc&#34;&gt;xmlrpc库&lt;/a&gt;。由于需要批量导入，所以可以将bug统一收集到excel中，最后读取excel文件将所有bug导入。找到处理excel的开源库：&lt;a href=&#34;https://github.com/tealeg/xlsx&#34;&gt;xlsx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;bug的struct定义&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;type Bugparams struct {
+    Productstring   `xmlrpc:&amp;quot;product&amp;quot;`
+    Component  string   `xmlrpc:&amp;quot;component&amp;quot;`
+    Summarystring   `xmlrpc:&amp;quot;summary&amp;quot;`
+    Cf_base_on_ver string   `xmlrpc:&amp;quot;cf_base_on_ver&amp;quot;`
+    Descriptionstring   `xmlrpc:&amp;quot;description&amp;quot;`
+    Cf_change_type string   `xmlrpc:&amp;quot;cf_change_type&amp;quot;`
+    Cf_come_from   string   `xmlrpc:&amp;quot;cf_come_from&amp;quot;`
+    Cf_probability string   `xmlrpc:&amp;quot;cf_probability&amp;quot;`
+    Cf_occurence_count string   `xmlrpc:&amp;quot;cf_occurence_count&amp;quot;`
+    Severity   string   `xmlrpc:&amp;quot;severity&amp;quot;`
+    Versionstring   `xmlrpc:&amp;quot;version&amp;quot;`
+    Priority   string   `xmlrpc:&amp;quot;priority&amp;quot;`
+    Groups []string `xmlrpc:&amp;quot;groups&amp;quot;`
+    Api_keystring   `xmlrpc:&amp;quot;api_key&amp;quot;`
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;注意这里的需要使用struct的TAG，以作为xml的成员名称。&lt;/li&gt;
+&lt;li&gt;API key的值是bugzilla系统给出的APK Key，每个用户独一无二的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;同时需要定义导入结果&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;result := struct {
+    Response int `xmlrpc:&amp;quot;id&amp;quot;`
+}{}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;这里id为导入后的在bugzilla系统中的ID值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;导入过程&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;client, _ := xmlrpc.NewClient(URL, nil)
+
+for e := buglist.Front(); e != nil; e = e.Next() {
+    bug := e.Value.(*Bugparams)
+    restatus := client.Call(&amp;quot;Bug.create&amp;quot;, bug, &amp;amp;result)
+    if restatus != nil {
+        fmt.Println(restatus.Error())
+        break
+    } else {
+        idlist.PushBack(result.Response)
+        fmt.Printf(&amp;quot;bugzilla id: %d ：%s \n&amp;quot;, result.Response, bug.Summary)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>hugo test</title>
+      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
+      <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
+      <description>&lt;p&gt;这是使用Hugo创建的站点中的第一篇文章。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

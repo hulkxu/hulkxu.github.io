@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    golang的应用--工作工具 | SENSITIVEHULK.COM
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="https://hulkxu.github.io/post/golang/golang_worktool/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="https://hulkxu.github.io/index.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+  <link href="https://hulkxu.github.io/index.xml" rel="feed" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="https://hulkxu.github.io/">SENSITIVEHULK.COM</a></h1>
+        <h2>I would like to be a layer 3 switch.</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          
+          <li><a href="https://github.com/foobar" target="_blank">GitHub</a></li>
+          <li><a href="https://hulkxu.github.io/index.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>golang的应用--工作工具</h1>
+      <div class="meta">
+        May 9, 2016 &nbsp;
+        
+          #<a href="/tags/development">Development</a>&nbsp;
+        
+          #<a href="/tags/golang">golang</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<blockquote>
+<p>日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具</p>
+</blockquote>
+
+<h2 id="批量bug导入:9e88b0463a278732711ab851a4acb3d9">批量Bug导入</h2>
+
+<p>Bugzilla系统可以通过<a href="https://en.wikipedia.org/wiki/XML-RPC">XML-RPC</a>协议将bug提交到系统中。golang中没有XML-RPC的库，所以只有寻找相关开源代码。从Github中找到<a href="https://github.com/kolo/xmlrpc">xmlrpc库</a>。由于需要批量导入，所以可以将bug统一收集到excel中，最后读取excel文件将所有bug导入。找到处理excel的开源库：<a href="https://github.com/tealeg/xlsx">xlsx</a></p>
+
+<p><strong>bug的struct定义</strong>：</p>
+
+<pre><code>type Bugparams struct {
+    Productstring   `xmlrpc:&quot;product&quot;`
+    Component  string   `xmlrpc:&quot;component&quot;`
+    Summarystring   `xmlrpc:&quot;summary&quot;`
+    Cf_base_on_ver string   `xmlrpc:&quot;cf_base_on_ver&quot;`
+    Descriptionstring   `xmlrpc:&quot;description&quot;`
+    Cf_change_type string   `xmlrpc:&quot;cf_change_type&quot;`
+    Cf_come_from   string   `xmlrpc:&quot;cf_come_from&quot;`
+    Cf_probability string   `xmlrpc:&quot;cf_probability&quot;`
+    Cf_occurence_count string   `xmlrpc:&quot;cf_occurence_count&quot;`
+    Severity   string   `xmlrpc:&quot;severity&quot;`
+    Versionstring   `xmlrpc:&quot;version&quot;`
+    Priority   string   `xmlrpc:&quot;priority&quot;`
+    Groups []string `xmlrpc:&quot;groups&quot;`
+    Api_keystring   `xmlrpc:&quot;api_key&quot;`
+} 
+</code></pre>
+
+<ul>
+<li>注意这里的需要使用struct的TAG，以作为xml的成员名称。</li>
+<li>API key的值是bugzilla系统给出的APK Key，每个用户独一无二的。</li>
+</ul>
+
+<p><strong>同时需要定义导入结果</strong>：</p>
+
+<pre><code>result := struct {
+    Response int `xmlrpc:&quot;id&quot;`
+}{}
+</code></pre>
+
+<ul>
+<li>这里id为导入后的在bugzilla系统中的ID值。</li>
+</ul>
+
+<p><strong>导入过程</strong>：</p>
+
+<pre><code>client, _ := xmlrpc.NewClient(URL, nil)
+
+for e := buglist.Front(); e != nil; e = e.Next() {
+    bug := e.Value.(*Bugparams)
+    restatus := client.Call(&quot;Bug.create&quot;, bug, &amp;result)
+    if restatus != nil {
+        fmt.Println(restatus.Error())
+        break
+    } else {
+        idlist.PushBack(result.Response)
+        fmt.Printf(&quot;bugzilla id: %d ：%s \n&quot;, result.Response, bug.Summary)
+    }
+}
+</code></pre>
+
+      
+      
+      
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside>
+
+<script type="text/javascript">
+     
+
+    var disqus_shortname = 'sensitivehulk';
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="https://hulkxu.github.io/post/golang/hugotest/" rel="prev">hugo test</a></span>
+    
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="/images/profile.png" width="64" height="64"><br>
+      Written by Sensitive Hulk
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

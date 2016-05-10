@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on SENSITIVEHULK.COM</title>
+    <link>https://hulkxu.github.io/about/</link>
+    <description>Recent content in Abouts on SENSITIVEHULK.COM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 03 May 2016 13:44:48 +0800</lastBuildDate>
+    <atom:link href="https://hulkxu.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>about</title>
+      <link>https://hulkxu.github.io/about/about/</link>
+      <pubDate>Tue, 03 May 2016 13:44:48 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/about/about/</guid>
+      <description>
+
+&lt;h1 id=&#34;关于我:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;关于我&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2011  毕业与西安电子科技大学&lt;/li&gt;
+&lt;li&gt;2016  上海，Android(MultiMedia)，Golang&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
