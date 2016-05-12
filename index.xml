@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SENSITIVEHULK.COM</title>
-    <link>sensitivehulk.com/</link>
+    <link>https://hulkxu.github.io/</link>
     <description>Recent content on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
-    <atom:link href="sensitivehulk.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://hulkxu.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang的web交互</title>
-      <link>/sensitivehulk.com/post/golang/web_interactive/</link>
+      <link>https://hulkxu.github.io/post/golang/web_interactive/</link>
       <pubDate>Tue, 10 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/post/golang/web_interactive/</guid>
+      <guid>https://hulkxu.github.io/post/golang/web_interactive/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -27,9 +27,9 @@
 
 &lt;p&gt;比如网站的登录操作，可以查看到以下数据交换：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
 
@@ -87,10 +87,10 @@ if response.StatusCode == 200 {
     
     <item>
       <title>golang的应用--工作工具</title>
-      <link>/sensitivehulk.com/post/golang/golang_worktool/</link>
+      <link>https://hulkxu.github.io/post/golang/golang_worktool/</link>
       <pubDate>Mon, 09 May 2016 16:57:54 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/post/golang/golang_worktool/</guid>
+      <guid>https://hulkxu.github.io/post/golang/golang_worktool/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -158,10 +158,10 @@ for e := buglist.Front(); e != nil; e = e.Next() {
     
     <item>
       <title>golang的面向对象编程特性</title>
-      <link>/sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</link>
+      <link>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</link>
       <pubDate>Wed, 04 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
+      <guid>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -246,10 +246,10 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     
     <item>
       <title>hugo创建个人Blog网站</title>
-      <link>/sensitivehulk.com/post/golang/hugotest/</link>
+      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
       <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/post/golang/hugotest/</guid>
+      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
       <description>
 
 &lt;p&gt;Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤：&lt;/p&gt;
@@ -274,7 +274,7 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
 &lt;li&gt;设置disqus为中文:进入disqus网站设置界面 “Configure Disqus for Your Site”&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;github支持域名绑定，可以绑定自己的域名，方法见&lt;a href=&#34;http://ruikye.com/2014/08/31/github_domain/&#34;&gt;链接&lt;/a&gt;。&lt;/li&gt;
@@ -284,10 +284,10 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     
     <item>
       <title>关于我</title>
-      <link>/sensitivehulk.com/about/</link>
+      <link>https://hulkxu.github.io/about/</link>
       <pubDate>Sun, 03 May 2015 13:44:48 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/about/</guid>
+      <guid>https://hulkxu.github.io/about/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;2011  毕业与西安电子科技大学&lt;/li&gt;
 &lt;li&gt;2016  上海，工作于一家手机芯片公司，主业在Android(MultiMedia)，关注OpenSouce，对Golang感兴趣。&lt;/li&gt;
@@ -298,10 +298,10 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     
     <item>
       <title>Android获取图片缩略图导致libskia crash</title>
-      <link>/sensitivehulk.com/post/golang/android_libskia_crash/</link>
+      <link>https://hulkxu.github.io/post/golang/android_libskia_crash/</link>
       <pubDate>Fri, 15 Aug 2014 16:57:54 +0800</pubDate>
       
-      <guid>/sensitivehulk.com/post/golang/android_libskia_crash/</guid>
+      <guid>https://hulkxu.github.io/post/golang/android_libskia_crash/</guid>
       <description>
 
 &lt;p&gt;最近项目中Camera2模块很多关于libskia库的native crash。Camera模块中用到libskia库的主要有图片解析（通过bitmap），获取缩略图（通过Images.Thumbnails.getThumbnail），从调用栈看与getThrumbnail相关。&lt;/p&gt;
@@ -325,15 +325,15 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
 同样存储在/DCIM/.thumbnails目录下。&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/two_thumbnail.png&#34; alt=&#34;缩略图&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/two_thumbnail.png&#34; alt=&#34;缩略图&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;MICRO_KIND 通过原图数据表中的MINI_THUMB_MAGIC字段来查询。MINI_KIND通过缩略图表来存储，通过id与原图关联。如下图&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android生成图片缩略图的过程:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;Android生成图片缩略图的过程&lt;/h2&gt;
 
@@ -426,7 +426,7 @@ c = cr.query(blockingUri, PROJECTION, null, null, null);
 
 &lt;ul&gt;
 &lt;li&gt;问题的根本原因是保存大缩略图时是先插入数据库数据，再保存实际文件数据。当有多个线程在同时调用Images.Thumbnails.getThumbnail方法时就会导致该问题，如下图：
-&lt;img src=&#34;sensitivehulk.com/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
+&lt;img src=&#34;https://hulkxu.github.io/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;解决方案:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;解决方案&lt;/h2&gt;
