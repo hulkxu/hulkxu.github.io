@@ -271,7 +271,7 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
 
 &lt;ul&gt;
 &lt;li&gt;theme选择为&lt;a href=&#34;https://github.com/tanksuzuki/angels-ladder&#34;&gt;angels-ladder&lt;/a&gt;，设计简单，支持tag,支持代码高亮，支持disqus评论。&lt;/li&gt;
-&lt;li&gt;设置disqus为中文:进入“Configure Disqus for Your Site”&lt;/li&gt;
+&lt;li&gt;设置disqus为中文:进入disqus网站设置界面 “Configure Disqus for Your Site”&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;

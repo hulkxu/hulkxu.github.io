@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on SENSITIVEHULK.COM</title>
+    <link>https://hulkxu.github.io/tags/android/</link>
+    <description>Recent content in Android on SENSITIVEHULK.COM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 15 Aug 2014 16:57:54 +0800</lastBuildDate>
+    <atom:link href="https://hulkxu.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Android获取图片缩略图导致libskia crash</title>
+      <link>https://hulkxu.github.io/post/golang/android_libskia_crash/</link>
+      <pubDate>Fri, 15 Aug 2014 16:57:54 +0800</pubDate>
+      
+      <guid>https://hulkxu.github.io/post/golang/android_libskia_crash/</guid>
+      <description>
+
+&lt;p&gt;最近项目中Camera2模块很多关于libskia库的native crash。Camera模块中用到libskia库的主要有图片解析（通过bitmap），获取缩略图（通过Images.Thumbnails.getThumbnail），从调用栈看与getThrumbnail相关。&lt;/p&gt;
+
+&lt;h2 id=&#34;android的两种缩略图:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;Android的两种缩略图&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;MICRO_KIND（比较小，大小只有10000byte），直接将jpeg数据存储在一个可以randomAccess的文件上，randomAccessFile在存储路径下的
+/DCIM/.thumbnails下的一个文件,见下面代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MiniThumbFile {
+    private String randomAccessFilePath(int version) {
+        String directoryName = 
+        Environment.getExternalStorageDirectory().toString()+ &amp;quot;/DCIM/.thumbnails&amp;quot;;
+        return directoryName + &amp;quot;/.thumbdata&amp;quot; + version + &amp;quot;-&amp;quot; + mUri.hashCode();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;MINI_KIND （比较大，长宽不大于512 * 384），从图片EXIF或者直接decode原图得到。见ThumbnailUtils.createImageThumbnail方法。
+同样存储在/DCIM/.thumbnails目录下。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/two_thumbnail.png&#34; alt=&#34;缩略图&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;MICRO_KIND 通过原图数据表中的MINI_THUMB_MAGIC字段来查询。MINI_KIND通过缩略图表来存储，通过id与原图关联。如下图&lt;/li&gt;
+&lt;li&gt;
+&lt;img src=&#34;https://hulkxu.github.io/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;android生成图片缩略图的过程:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;Android生成图片缩略图的过程&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首先MediaProvider插入图片到数据库时并不立即生成缩略图&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;当通过获取Images.Thumbnails.getThumbnail获取缩略图时，首先判断randomAccessFile是否已生成过缩略图。如果已生成缩略图，则直接查询。（MediaStore.java的Images.Thumbnails.getThumbnail方法）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;MiniThumbFile thumbFile = new MiniThumbFile(isVideo ? 
+    Video.Media.EXTERNAL_CONTENT_URI: Images.Media.EXTERNAL_CONTENT_URI);
+long magic = thumbFile.getMagic(origId);
+if (magic != 0) {
+    if (kind == MICRO_KIND) {
+        synchronized (sThumbBufLock) {
+        //get bitmap data from randomAcessFile
+        if (thumbFile.getMiniThumbFromFile(origId, sThumbBuf) != null) {
+            bitmap = BitmapFactory.decodeByteArray(sThumbBuf, 0, sThumbBuf.length);
+        }
+    }
+    return bitmap;
+    } else if (kind == MINI_KIND) {
+        String column = isVideo ? &amp;quot;video_id=&amp;quot; : &amp;quot;image_id=&amp;quot;;
+        //query thumbnail id
+        c = cr.query(baseUri, PROJECTION, column + origId, null, null);
+        if (c != null &amp;amp;&amp;amp; c.moveToFirst()) {
+            // get bitmap from thumbnail jpeg file
+            bitmap = getMiniThumbFromFile(c, baseUri, cr, options);
+            if (bitmap != null) {
+            return bitmap;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;这里baseUri为缩略图Uri:content://media/external/images/thumbnails&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;若未生成过缩略图，则需要先通过query查询操作来生成缩略图:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Uri blockingUri = baseUri.buildUpon().appendQueryParameter(&amp;quot;blocking&amp;quot;, &amp;quot;1&amp;quot;)
+.appendQueryParameter(&amp;quot;orig_id&amp;quot;, String.valueOf(origId))
+.appendQueryParameter(&amp;quot;group_id&amp;quot;, String.valueOf(groupId)).build();
+c = cr.query(blockingUri, PROJECTION, null, null, null);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;查询操作对应MediaProvider的queryThumbnail，waitForThumbnailReady方法。会首先查询原始图片的id,文件路径，然后生成MediaThumbRequest发送给thumbs thread执行。下面来看MediaThumbRequest的执行过程（MediaThumbRequest.java）;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void execute() throws IOException {
+    //.....
+    Bitmap bitmap = null;
+    if (mPath != null) {
+        //这里mPath为原始图片路径，生成大jpeg缩略图
+        bitmap = ThumbnailUtils.createImageThumbnail(mPath,
+                    Images.Thumbnails.MINI_KIND);
+        //这里是重点，先向数据库中插入记录，再保存数据到文件中！
+        Uri uri = updateDatabase(bitmap);
+        if (uri != null) {
+            OutputStream thumbOut = mCr.openOutputStream(uri);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, thumbOut);
+            thumbOut.close();
+        }
+    }
+    //接下来生成小缩略图，先将bitmap裁剪到合适大小
+    bitmap = ThumbnailUtils.extractThumbnail(bitmap,
+          ThumbnailUtils.TARGET_SIZE_MICRO_THUMBNAIL,
+          ThumbnailUtils.TARGET_SIZE_MICRO_THUMBNAIL,
+          ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, miniOutStream);
+    data = miniOutStream.toByteArray();
+    magic = sRandom.nextLong();
+    //将数据直接保存到randomAccessFile中，magic是地址
+    miniThumbFile.saveMiniThumbToFile(data, mOrigId, magic);
+    ContentValues values = new ContentValues();
+    //然后将magic地址更新到原始图片的MINI_THUMB_MAGIC字段中
+    values.put(ImageColumns.MINI_THUMB_MAGIC, magic);
+    mCr.update(mUri, values, null, null);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;至此缩略图都已生成完毕。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;libjpeg-crash的原因:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;libjpeg crash的原因&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; signal 7 (SIGBUS), code 2 (BUS_ADRERR), fault addr 554ec000
+#00  pc 00022058  /system/lib/libc.so (__memcpy_base+60)
+#01  pc 000c6dc9  /system/lib/libskia.so (SkMemoryStream::read(void*, unsigned int)+28)
+#02  pc 000f045d  /system/lib/libskia.so
+#03  pc 0001c4e4  /system/lib/libjpeg.so (jpeg_fill_bit_buffer+108)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;问题的根本原因是保存大缩略图时是先插入数据库数据，再保存实际文件数据。当有多个线程在同时调用Images.Thumbnails.getThumbnail方法时就会导致该问题，如下图：
+&lt;img src=&#34;https://hulkxu.github.io/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;解决方案:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;解决方案&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Images.Thumbnails.getThumbnail的查询query接口加上保护锁。&lt;/li&gt;
+&lt;li&gt;MediaThumbRequest 中先进行jpeg数据的保存再进行数据库的更新。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第一种方案修改比较方便，最后修改如下，问题也解决，crash未再复现。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--- a/core/java/android/provider/MediaStore.java
++++ b/core/java/android/provider/MediaStore.java
+@@ -541,6 +541,7 @@ public final class MediaStore {
+         private static final Object sThumbBufLock = new Object();
+         private static byte[] sThumbBuf;
+
+       + private static final Object sThumbLock = new Object();
+
+@@ -645,7 +646,9 @@ public final class MediaStore {
+           if (c != null) c.close();
+       -   c = cr.query(blockingUri, PROJECTION, null, null, null);
+       +   synchronized (sThumbLock) {
+       +        c = cr.query(blockingUri, PROJECTION, null, null, null);
+       +   }
+           // This happens when original image/video doesn&#39;t exist.
+           if (c == null) return null;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

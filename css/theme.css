@@ -230,11 +230,15 @@ article #share-this {
   color: #999;
 }
 .summary {
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid #ddd;
+  font-size: 0.8rem;
 }
 .meta {
   color: #999;
   font-size: 12px;
+}
+.summary .meta{
+  margin-bottom:0.5rem;
 }
