@@ -325,9 +325,9 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
 
 &lt;ul&gt;
 &lt;li&gt;MICRO_KIND 通过原图数据表中的MINI_THUMB_MAGIC字段来查询。MINI_KIND通过缩略图表来存储，通过id与原图关联。如下图&lt;/li&gt;
-&lt;li&gt;
-&lt;img src=&#34;https://hulkxu.github.io/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
 
