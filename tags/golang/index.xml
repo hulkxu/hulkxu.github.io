@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on SENSITIVEHULK.COM</title>
-    <link>https://hulkxu.github.io/tags/golang/</link>
+    <link>sensitivehulk.com/tags/golang/</link>
     <description>Recent content in Golang on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
-    <atom:link href="https://hulkxu.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="sensitivehulk.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang的web交互</title>
-      <link>https://hulkxu.github.io/post/golang/web_interactive/</link>
+      <link>/sensitivehulk.com/post/golang/web_interactive/</link>
       <pubDate>Tue, 10 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/web_interactive/</guid>
+      <guid>/sensitivehulk.com/post/golang/web_interactive/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -27,9 +27,9 @@
 
 &lt;p&gt;比如网站的登录操作，可以查看到以下数据交换：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
 
@@ -87,10 +87,10 @@ if response.StatusCode == 200 {
     
     <item>
       <title>golang的应用--工作工具</title>
-      <link>https://hulkxu.github.io/post/golang/golang_worktool/</link>
+      <link>/sensitivehulk.com/post/golang/golang_worktool/</link>
       <pubDate>Mon, 09 May 2016 16:57:54 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/golang_worktool/</guid>
+      <guid>/sensitivehulk.com/post/golang/golang_worktool/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -158,10 +158,10 @@ for e := buglist.Front(); e != nil; e = e.Next() {
     
     <item>
       <title>golang的面向对象编程特性</title>
-      <link>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</link>
+      <link>/sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</link>
       <pubDate>Wed, 04 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
+      <guid>/sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -246,10 +246,10 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     
     <item>
       <title>hugo创建个人Blog网站</title>
-      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
+      <link>/sensitivehulk.com/post/golang/hugotest/</link>
       <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
+      <guid>/sensitivehulk.com/post/golang/hugotest/</guid>
       <description>
 
 &lt;p&gt;Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤：&lt;/p&gt;
@@ -274,7 +274,7 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
 &lt;li&gt;设置disqus为中文:进入disqus网站设置界面 “Configure Disqus for Your Site”&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;github支持域名绑定，可以绑定自己的域名，方法见&lt;a href=&#34;http://ruikye.com/2014/08/31/github_domain/&#34;&gt;链接&lt;/a&gt;。&lt;/li&gt;

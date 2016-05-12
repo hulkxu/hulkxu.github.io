@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on SENSITIVEHULK.COM</title>
-    <link>https://hulkxu.github.io/tags/hugo/</link>
+    <link>sensitivehulk.com/tags/hugo/</link>
     <description>Recent content in Hugo on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 03 May 2016 14:35:50 +0800</lastBuildDate>
-    <atom:link href="https://hulkxu.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="sensitivehulk.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>hugo创建个人Blog网站</title>
-      <link>https://hulkxu.github.io/post/golang/hugotest/</link>
+      <link>/sensitivehulk.com/post/golang/hugotest/</link>
       <pubDate>Tue, 03 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/hugotest/</guid>
+      <guid>/sensitivehulk.com/post/golang/hugotest/</guid>
       <description>
 
 &lt;p&gt;Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤：&lt;/p&gt;
@@ -39,7 +39,7 @@
 &lt;li&gt;设置disqus为中文:进入disqus网站设置界面 “Configure Disqus for Your Site”&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/disqus.set_chinese.PNG&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;github支持域名绑定，可以绑定自己的域名，方法见&lt;a href=&#34;http://ruikye.com/2014/08/31/github_domain/&#34;&gt;链接&lt;/a&gt;。&lt;/li&gt;
