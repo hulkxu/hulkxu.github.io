@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web on SENSITIVEHULK.COM</title>
-    <link>https://hulkxu.github.io/tags/web/</link>
+    <link>sensitivehulk.com/tags/web/</link>
     <description>Recent content in Web on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
-    <atom:link href="https://hulkxu.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="sensitivehulk.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang的web交互</title>
-      <link>https://hulkxu.github.io/post/golang/web_interactive/</link>
+      <link>/sensitivehulk.com/post/golang/web_interactive/</link>
       <pubDate>Tue, 10 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/web_interactive/</guid>
+      <guid>/sensitivehulk.com/post/golang/web_interactive/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -27,9 +27,9 @@
 
 &lt;p&gt;比如网站的登录操作，可以查看到以下数据交换：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
 

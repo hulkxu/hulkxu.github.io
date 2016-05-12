@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Thumbnails on SENSITIVEHULK.COM</title>
-    <link>https://hulkxu.github.io/tags/thumbnails/</link>
+    <link>sensitivehulk.com/tags/thumbnails/</link>
     <description>Recent content in Thumbnails on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Fri, 15 Aug 2014 16:57:54 +0800</lastBuildDate>
-    <atom:link href="https://hulkxu.github.io/tags/thumbnails/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="sensitivehulk.com/tags/thumbnails/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Android获取图片缩略图导致libskia crash</title>
-      <link>https://hulkxu.github.io/post/golang/android_libskia_crash/</link>
+      <link>/sensitivehulk.com/post/golang/android_libskia_crash/</link>
       <pubDate>Fri, 15 Aug 2014 16:57:54 +0800</pubDate>
       
-      <guid>https://hulkxu.github.io/post/golang/android_libskia_crash/</guid>
+      <guid>/sensitivehulk.com/post/golang/android_libskia_crash/</guid>
       <description>
 
 &lt;p&gt;最近项目中Camera2模块很多关于libskia库的native crash。Camera模块中用到libskia库的主要有图片解析（通过bitmap），获取缩略图（通过Images.Thumbnails.getThumbnail），从调用栈看与getThrumbnail相关。&lt;/p&gt;
@@ -38,15 +38,15 @@
 同样存储在/DCIM/.thumbnails目录下。&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/two_thumbnail.png&#34; alt=&#34;缩略图&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/two_thumbnail.png&#34; alt=&#34;缩略图&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;MICRO_KIND 通过原图数据表中的MINI_THUMB_MAGIC字段来查询。MINI_KIND通过缩略图表来存储，通过id与原图关联。如下图&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/mircothumb_database.png&#34; alt=&#34;MICRO_KIND&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://hulkxu.github.io/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;sensitivehulk.com/media/minithumb_database.png&#34; alt=&#34;MINI_KIND&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android生成图片缩略图的过程:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;Android生成图片缩略图的过程&lt;/h2&gt;
 
@@ -139,7 +139,7 @@ c = cr.query(blockingUri, PROJECTION, null, null, null);
 
 &lt;ul&gt;
 &lt;li&gt;问题的根本原因是保存大缩略图时是先插入数据库数据，再保存实际文件数据。当有多个线程在同时调用Images.Thumbnails.getThumbnail方法时就会导致该问题，如下图：
-&lt;img src=&#34;https://hulkxu.github.io/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
+&lt;img src=&#34;sensitivehulk.com/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;解决方案:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;解决方案&lt;/h2&gt;
