@@ -6,8 +6,245 @@
     <description>Recent content on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 10 May 2016 14:35:50 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 May 2016 15:35:50 +0800</lastBuildDate>
     <atom:link href="http://sensitivehulk.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Android的闪光灯解决方案（Android M）</title>
+      <link>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</link>
+      <pubDate>Fri, 13 May 2016 15:35:50 +0800</pubDate>
+      
+      <guid>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;android-m上打开闪光灯的方式:01e72f00a80225a8db4feb884357235d&#34;&gt;Android M上打开闪光灯的方式&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;通过CameraManager的setTorchMode方法来直接打开闪光灯模块。与camera模块没有冲突，在后台打开手电筒打开闪光灯的情况下进入Camera应用后也不会报错。以FlashlightController（frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy）为例。&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;首先需要注册TorchCallback回调：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mCameraManager.registerTorchCallback(mTorchCallback, mHandler);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;打开关闭闪光灯：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void setFlashlight(boolean enabled) {
+    boolean pendingError = false;
+    synchronized (this) {
+        if (mFlashlightEnabled != enabled) {
+            mFlashlightEnabled = enabled;
+            try {
+                mCameraManager.setTorchMode(mCameraId, enabled);
+            } catch (CameraAccessException e) {
+                Log.e(TAG, &amp;quot;Couldn&#39;t set torch mode&amp;quot;, e);
+                mFlashlightEnabled = false;
+                pendingError = true;
+            }
+        }
+    }
+    dispatchModeChanged(mFlashlightEnabled);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;设置结果通过回调通知：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private final CameraManager.TorchCallback mTorchCallback =
+        new CameraManager.TorchCallback() {
+    @Override
+    public void onTorchModeUnavailable(String cameraId) {
+        //不支持TorchMode
+        if (TextUtils.equals(cameraId, mCameraId)) {
+            setCameraAvailable(false);
+        }
+    }
+    @Override
+    public void onTorchModeChanged(String cameraId, boolean enabled) {
+        if (TextUtils.equals(cameraId, mCameraId)) {
+            //设置成功
+            setCameraAvailable(true);
+            setTorchMode(enabled);
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;settorchmode的调用过程:01e72f00a80225a8db4feb884357235d&#34;&gt;setTorchMode的调用过程&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;setTorchMode的调用过程如下图所示：
+&lt;img src=&#34;http://sensitivehulk.com/media/settorchmode_flow.png&#34; alt=&#34;调用流程&#34; /&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;CameraDeviceClientFlashControl的setTorchMode方法如下。同样是open camera，设置flash mode为TORCH的方式，这与之前没什么区别，只是将这个过程放到Native层，使其与Camera使用避免冲突。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//……
+res = connectCameraDevice(cameraId);
+uint8_t torchOn = ANDROID_FLASH_MODE_TORCH;
+mMetadata-&amp;gt;update(ANDROID_FLASH_MODE, &amp;amp;torchOn, 1);
+//……
+res = mDevice-&amp;gt;setStreamingRequest(*mMetadata);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;android-m上实现闪光灯的节点模式:01e72f00a80225a8db4feb884357235d&#34;&gt;Android M上实现闪光灯的节点模式&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Android M上闪光灯的使用与Camera设备的使用冲突已经解决，所以这里直接在设备节点的操作放到Native层，替代之前的CameraDeviceClientFlashControl的工作即可，这比Android L上实现方便很多。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;设备节点的生成以及权限设置同AndroidL的方式&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;基于FlashControlBase 新建一个类FlashControlByDevNode。其setTorchMode方法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;status_t FlashControlByDevNode::setTorchMode(
+    const String8&amp;amp; cameraId, bool enabled) {
+
+
+    if (enabled) {
+        // pre-check：invalid camera?no flash unit?
+        writeFlashDevNode(17);//Enable flash, 0x11
+        mTorchEnabled = true;
+        mCallbacks-&amp;gt;torch_mode_status_change(mCallbacks,
+                cameraId.string(), TORCH_MODE_STATUS_AVAILABLE_ON);
+        return OK;              
+    } else {
+        writeFlashDevNode(16);//Disable flash, 0x10
+        mTorchEnabled = false;
+        mCallbacks-&amp;gt;torch_mode_status_change(mCallbacks,
+            cameraId.string(), TORCH_MODE_STATUS_AVAILABLE_OFF);
+        return OK;
+    }
+}
+
+
+status_t FlashControlByDevNode::writeFlashDevNode(int value)
+{
+    status_t ret = 0;
+    const char *flash_dev_node = &amp;quot;/sys/class/flash_test/flash_test/flash_value&amp;quot;;
+    char write_value[8] = {0};
+    FILE *file = fopen(flash_dev_node, &amp;quot;rb+&amp;quot;);
+    if (NULL != file) {
+        sprintf(write_value, &amp;quot;0x%02x&amp;quot;, value);
+        fseek(file, 0, 0);
+        fwrite(write_value, strlen(write_value), 1, file);
+        fclose(file);
+    }
+    return ret;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android的闪光灯解决方案（Android L）</title>
+      <link>http://sensitivehulk.com/post/golang/android_flashlight_solution/</link>
+      <pubDate>Fri, 13 May 2016 14:35:50 +0800</pubDate>
+      
+      <guid>http://sensitivehulk.com/post/golang/android_flashlight_solution/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;android-l上打开闪光灯的方式:a4d4ce96910111937db23fc566e850cd&#34;&gt;Android L上打开闪光灯的方式&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;通过open Camera,并设置flash mode为TORCH来实现的，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mCameraManager.openCamera(getCameraId(), mCameraListener, mHandler);
+mCameraDevice.createCaptureSession(outputs, mSessionListener, mHandler);
+CaptureRequest.Builder builder = mCameraDevice.createCaptureRequest(
+             CameraDevice.TEMPLATE_PREVIEW);
+builder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
+builder.addTarget(mSurface);
+CaptureRequest request = builder.build();
+mSession.capture(request, null, mHandler);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;android-l实现闪光灯的节点模式:a4d4ce96910111937db23fc566e850cd&#34;&gt;Android L实现闪光灯的节点模式&lt;/h2&gt;
+
+&lt;p&gt;将闪光灯改为节点模式后，打开关闭闪光灯与Camera就区分开来了，不会阻塞到其他Camera应用。但当其他camera打开camera时，我们要交出闪光灯的控制权，以免影响Camera的正常使用。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首先将闪光灯设备做成设备节点&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在init.rc里面设置节点权限，以方便读写&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chown system system /sys/class/flash_test/flash_test/flash_value
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在已有LightsService.java（frameworks/base/services/core/java/com/androidserver/lights）中完善flashlight服务：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private final IHardwareService.Stub mLegacyFlashlightHack = 
+    new IHardwareService.Stub() {
+    private static final String FLASHLIGHT_FILE =
+     &amp;quot;/sys/class/flash_test/flash_test/flash_value&amp;quot;;
+    public void setFlashlightEnabled(boolean on) {
+        //check permission
+        try {
+            FileOutputStream fos = new FileOutputStream(FLASHLIGHT_FILE);
+            byte[] bytes = new byte[5];
+            bytes[0] = (byte)(&#39;0&#39;);
+            bytes[1] = (byte)(&#39;x&#39;);
+            bytes[2] = (byte)(on ? &#39;1&#39; : &#39;0&#39;);
+            bytes[3] = (byte)(on ? &#39;1&#39; : &#39;0&#39;);
+            bytes[4] = &#39;\n&#39;;
+            fos.write(bytes);
+            fos.close();
+        } catch (Exception e) {
+            // fail silently
+            android.util.Log.v(&amp;quot;KKKK&amp;quot;, &amp;quot;setFlashlightEnabled, on exception &amp;quot; + e);
+        }
+    }
+}
+publishBinderService(&amp;quot;hardware&amp;quot;, mLegacyFlashlightHack);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;新建一个FlashLightManager.java类用来操作该设备，处理与Camera使用闪光灯冲突的问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private FlashLightManager() {
+    IBinder binder = (IBinder) ServiceManager.getService(&amp;quot;hardware&amp;quot;);
+    mLocalhardwareservice = IHardwareService.Stub.asInterface(binder);
+    mFlashLightOn = false;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;打开，关闭闪光灯后发送广播，让相应的应用处理。比如后台手电筒在打开的情况下进入Camera应用，需要关闭闪光灯，所以需要发送广播让手电筒更新UI显示。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public boolean setFlashlightEnabled(boolean isEnable) {
+    if (isEnable) {
+        mLocalhardwareservice.setFlashlightEnabled(isEnable);
+    }
+    mFlashLightOn = isEnable;
+    if (!mFlashLightOn) {
+        Intent intent = new Intent(Intent.ACTION_FLASHLIGHT_STATE_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        intent.putExtra(Intent.EXTRA_FLASHLIGHT_STATE, mFlashLightOn);
+        context.sendBroadcast(intent);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;要保证所有Camera应用进入时关闭闪光灯，需要在framework的Camera.java（frameworks/base/core/java/android/hardware/Camera.java）中构造函数里关闭闪光灯：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private Camera(int cameraId, int halVersion) {
+    //……
+    if (FlashLightManager.getInstance().getFlashlightEnabled()) {
+        Log.d(TAG, &amp;quot;FlashLightManager is not use cameramode,will close Flashlight&amp;quot;);
+        FlashLightManager.getInstance().setFlashlightEnabled(false);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>golang的web交互</title>
@@ -205,7 +442,7 @@ baidujk.Drugweb.webname = &amp;quot;baidu&amp;quot;
 
 &lt;h2 id=&#34;方法重载:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;方法重载&lt;/h2&gt;
 
-&lt;p&gt;golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。&lt;/p&gt;
+&lt;p&gt;方法重载就是一个类中可以有相同的函数名称，但是它们的参数是不一致的。golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;func (Drugweb *web) recite(v ...interface{}) {
     fmt.Println(v)
@@ -289,8 +526,8 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
       
       <guid>http://sensitivehulk.com/about/</guid>
       <description>&lt;ul&gt;
-&lt;li&gt;2011  毕业与西安电子科技大学&lt;/li&gt;
-&lt;li&gt;2016  上海，工作于一家手机芯片公司，主业在Android(MultiMedia)，关注OpenSouce，对Golang感兴趣。&lt;/li&gt;
+&lt;li&gt;2011年毕业与西安电子科技大学&lt;/li&gt;
+&lt;li&gt;现工作于上海一家手机芯片公司，主业在Android(MultiMedia)，关注OpenSouce，对Golang感兴趣。&lt;/li&gt;
 &lt;li&gt;平时爱好篮球。有几件想做的事：学好摄像，练好书法。&lt;/li&gt;
 &lt;/ul&gt;
 </description>

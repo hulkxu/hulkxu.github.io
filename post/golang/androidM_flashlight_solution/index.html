@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    Android的闪光灯解决方案（Android M） | SENSITIVEHULK.COM
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+  <meta name="msvalidate.01" content="4CFABCE200222542A02923B72A785CD3" />
+  
+  <link rel="canonical" href="http://sensitivehulk.com/post/golang/androidM_flashlight_solution/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="http://sensitivehulk.com/index.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+  <link href="http://sensitivehulk.com/index.xml" rel="feed" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://sensitivehulk.com/">SENSITIVEHULK.COM</a></h1>
+        <h2>I would like to be a layer 3 switch.</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          
+          <li><a href="https://github.com/hulkxu" target="_blank">GitHub</a></li>
+          <li><a href="http://sensitivehulk.com/index.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Android的闪光灯解决方案（Android M）</h1>
+      <div class="meta">
+        May 13, 2016 &nbsp;
+        
+          #<a href="/tags/development">Development</a>&nbsp;
+        
+          #<a href="/tags/android">Android</a>&nbsp;
+        
+          #<a href="/tags/flashlight">Flashlight</a>&nbsp;
+        
+          #<a href="/tags/camera">Camera</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<p><strong>在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</strong></p>
+
+<p><strong>一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</strong></p>
+
+<h2 id="android-m上打开闪光灯的方式:01e72f00a80225a8db4feb884357235d">Android M上打开闪光灯的方式</h2>
+
+<ul>
+<li>通过CameraManager的setTorchMode方法来直接打开闪光灯模块。与camera模块没有冲突，在后台打开手电筒打开闪光灯的情况下进入Camera应用后也不会报错。以FlashlightController（frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy）为例。</li>
+
+<li><p>首先需要注册TorchCallback回调：</p>
+
+<pre><code>mCameraManager.registerTorchCallback(mTorchCallback, mHandler);
+</code></pre></li>
+
+<li><p>打开关闭闪光灯：</p>
+
+<pre><code>public void setFlashlight(boolean enabled) {
+    boolean pendingError = false;
+    synchronized (this) {
+        if (mFlashlightEnabled != enabled) {
+            mFlashlightEnabled = enabled;
+            try {
+                mCameraManager.setTorchMode(mCameraId, enabled);
+            } catch (CameraAccessException e) {
+                Log.e(TAG, &quot;Couldn't set torch mode&quot;, e);
+                mFlashlightEnabled = false;
+                pendingError = true;
+            }
+        }
+    }
+    dispatchModeChanged(mFlashlightEnabled);
+}
+</code></pre></li>
+
+<li><p>设置结果通过回调通知：</p>
+
+<pre><code>private final CameraManager.TorchCallback mTorchCallback =
+        new CameraManager.TorchCallback() {
+    @Override
+    public void onTorchModeUnavailable(String cameraId) {
+        //不支持TorchMode
+        if (TextUtils.equals(cameraId, mCameraId)) {
+            setCameraAvailable(false);
+        }
+    }
+    @Override
+    public void onTorchModeChanged(String cameraId, boolean enabled) {
+        if (TextUtils.equals(cameraId, mCameraId)) {
+            //设置成功
+            setCameraAvailable(true);
+            setTorchMode(enabled);
+        }
+    }
+};
+</code></pre></li>
+</ul>
+
+<h2 id="settorchmode的调用过程:01e72f00a80225a8db4feb884357235d">setTorchMode的调用过程</h2>
+
+<ul>
+<li>setTorchMode的调用过程如下图所示：
+<img src="/media/settorchmode_flow.png" alt="调用流程" /></li>
+
+<li><p>CameraDeviceClientFlashControl的setTorchMode方法如下。同样是open camera，设置flash mode为TORCH的方式，这与之前没什么区别，只是将这个过程放到Native层，使其与Camera使用避免冲突。</p>
+
+<pre><code>//……
+res = connectCameraDevice(cameraId);
+uint8_t torchOn = ANDROID_FLASH_MODE_TORCH;
+mMetadata-&gt;update(ANDROID_FLASH_MODE, &amp;torchOn, 1);
+//……
+res = mDevice-&gt;setStreamingRequest(*mMetadata);
+</code></pre></li>
+</ul>
+
+<h2 id="android-m上实现闪光灯的节点模式:01e72f00a80225a8db4feb884357235d">Android M上实现闪光灯的节点模式</h2>
+
+<ul>
+<li><p>Android M上闪光灯的使用与Camera设备的使用冲突已经解决，所以这里直接在设备节点的操作放到Native层，替代之前的CameraDeviceClientFlashControl的工作即可，这比Android L上实现方便很多。</p></li>
+
+<li><p>设备节点的生成以及权限设置同AndroidL的方式</p></li>
+
+<li><p>基于FlashControlBase 新建一个类FlashControlByDevNode。其setTorchMode方法如下：</p>
+
+<pre><code>status_t FlashControlByDevNode::setTorchMode(
+    const String8&amp; cameraId, bool enabled) {
+
+
+    if (enabled) {
+        // pre-check：invalid camera?no flash unit?
+        writeFlashDevNode(17);//Enable flash, 0x11
+        mTorchEnabled = true;
+        mCallbacks-&gt;torch_mode_status_change(mCallbacks,
+                cameraId.string(), TORCH_MODE_STATUS_AVAILABLE_ON);
+        return OK;              
+    } else {
+        writeFlashDevNode(16);//Disable flash, 0x10
+        mTorchEnabled = false;
+        mCallbacks-&gt;torch_mode_status_change(mCallbacks,
+            cameraId.string(), TORCH_MODE_STATUS_AVAILABLE_OFF);
+        return OK;
+    }
+}
+
+
+status_t FlashControlByDevNode::writeFlashDevNode(int value)
+{
+    status_t ret = 0;
+    const char *flash_dev_node = &quot;/sys/class/flash_test/flash_test/flash_value&quot;;
+    char write_value[8] = {0};
+    FILE *file = fopen(flash_dev_node, &quot;rb+&quot;);
+    if (NULL != file) {
+        sprintf(write_value, &quot;0x%02x&quot;, value);
+        fseek(file, 0, 0);
+        fwrite(write_value, strlen(write_value), 1, file);
+        fclose(file);
+    }
+    return ret;
+}
+</code></pre></li>
+</ul>
+
+      
+      
+      
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside>
+
+<script type="text/javascript">
+     
+
+    var disqus_shortname = 'sensitivehulk';;
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://sensitivehulk.com/post/golang/android_flashlight_solution/" rel="prev">Android的闪光灯解决方案（Android L）</a></span>
+    
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="/images/profile.png" width="64" height="64"><br>
+      <a href="/about">Written by Sensitive Hulk</a>
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

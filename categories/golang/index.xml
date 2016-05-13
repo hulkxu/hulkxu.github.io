@@ -205,7 +205,7 @@ baidujk.Drugweb.webname = &amp;quot;baidu&amp;quot;
 
 &lt;h2 id=&#34;方法重载:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;方法重载&lt;/h2&gt;
 
-&lt;p&gt;golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。&lt;/p&gt;
+&lt;p&gt;方法重载就是一个类中可以有相同的函数名称，但是它们的参数是不一致的。golang不支持重载，会报redeclared错误，但我们可以使用不定参数的函数来替换。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;func (Drugweb *web) recite(v ...interface{}) {
     fmt.Println(v)
