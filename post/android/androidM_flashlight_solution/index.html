@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="/css/highlight_monokai.css">
   <link rel="stylesheet" href="/css/theme.css">
   <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="/font-awesome-4.6.3/css/font-awesome.min.css">
+
   
   
   <link href="http://sensitivehulk.com/index.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
@@ -49,10 +51,11 @@
       </div>
       <div id="social" class="col span_6">
         <ul>
+          <li><a href="/about"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;About</a></li>
           
           
-          <li><a href="https://github.com/hulkxu" target="_blank">GitHub</a></li>
-          <li><a href="http://sensitivehulk.com/index.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+          <li><a href="https://github.com/hulkxu" target="_blank"><i class="fa fa-github-alt"></i>&nbsp;GitHub</a></li>
+          <li><a href="http://sensitivehulk.com/index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;RSS</a></li>
         </ul>
       </div>
     </div>
@@ -79,7 +82,10 @@
       </div>
     </div>
     
+    <div id="bodydescpriton">
+    <i class="fa fa-hand-o-right fa-2x" aria-hidden="true"></i> 
     <strong>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</strong>
+    </div>
     
     <div id="toc">
     <nav id="TableOfContents">

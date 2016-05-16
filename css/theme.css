@@ -215,9 +215,14 @@ footer img {
 
 #toc nav ul li ul {
   color: #999;
-  margin: 25px 0 0 30px;
+  margin: 15px 0 0 30px;
   padding: 0 0 0 20px;
   border-left: 4px solid #29abe2;
+}
+
+#bodydescpriton {
+   margin-bottom: 20px;
+   font-size: 14px;
 }
 
 article h1 {
