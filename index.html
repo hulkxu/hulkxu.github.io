@@ -68,7 +68,7 @@
   
   
   <div class="summary">
-    <h2><a href="http://sensitivehulk.com/post/golang/androidM_flashlight_solution/">Android的闪光灯解决方案（Android M） </a></h2>
+    <h2><a href="http://sensitivehulk.com/post/android/androidM_flashlight_solution/">Android的闪光灯解决方案（Android M） </a></h2>
     <div class="meta">
       May 13, 2016 &nbsp;
       
@@ -82,12 +82,12 @@
       
     </div>
     
-    <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</p>
+    <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</p>
 
   </div>
   
   <div class="summary">
-    <h2><a href="http://sensitivehulk.com/post/golang/android_flashlight_solution/">Android的闪光灯解决方案（Android L） </a></h2>
+    <h2><a href="http://sensitivehulk.com/post/android/android_flashlight_solution/">Android的闪光灯解决方案（Android L） </a></h2>
     <div class="meta">
       May 13, 2016 &nbsp;
       
@@ -101,7 +101,7 @@
       
     </div>
     
-    <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</p>
+    <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</p>
 
   </div>
   
@@ -154,52 +154,22 @@
 
   </div>
   
-  <div class="summary">
-    <h2><a href="http://sensitivehulk.com/post/golang/hugotest/">hugo创建个人Blog网站 </a></h2>
-    <div class="meta">
-      May 3, 2016 &nbsp;
-      
-        #<a href="/tags/development">Development</a>&nbsp;
-      
-        #<a href="/tags/golang">golang</a>&nbsp;
-      
-        #<a href="/tags/hugo">hugo</a>&nbsp;
-      
-    </div>
-    
-    <p>Hugo是一个用Go语言编写的静态网站生成器，它使用起来非常简单。具体分为下面几个步骤……</p>
-
-  </div>
-  
-  <div class="summary">
-    <h2><a href="http://sensitivehulk.com/post/golang/android_libskia_crash/">Android获取图片缩略图导致libskia crash </a></h2>
-    <div class="meta">
-      Aug 15, 2014 &nbsp;
-      
-        #<a href="/tags/development">Development</a>&nbsp;
-      
-        #<a href="/tags/android">Android</a>&nbsp;
-      
-        #<a href="/tags/thumbnails">Thumbnails</a>&nbsp;
-      
-        #<a href="/tags/libskia">libskia</a>&nbsp;
-      
-        #<a href="/tags/crash">Crash</a>&nbsp;
-      
-    </div>
-    
-    <p>最近项目中Camera2模块很多关于libskia库的native crash。Camera模块中用到libskia库的主要有图片解析（通过bitmap），获取缩略图（通过Images.Thumbnails.getThumbnail），从调用栈看与getThrumbnail相关。</p>
-
-  </div>
-  
 </main>
 
 
 
 <nav>
   
-  
-    
+  <nav class="pager" role="navigation">
+
+
+
+
+<a id= "currentpage" class="button"><i class="fa"></i>Page 1</a>&nbsp;
+
+<a class="button" href="/page/2/">Older&nbsp;<i class="fa fa-chevron-right"></i></a>
+
+</nav>
 </nav>
 
 
@@ -208,7 +178,7 @@
   <footer role="contentinfo">
     <div style="text-align:center;">
       <img src="/images/profile.png" width="64" height="64"><br>
-      <a href="/about">Written by Sensitive Hulk</a>
+      Written by <a href="/about">Sensitive Hulk</a>
     </div>
   </footer>
 

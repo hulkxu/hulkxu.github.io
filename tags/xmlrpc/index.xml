@@ -17,10 +17,6 @@
       <guid>http://sensitivehulk.com/post/golang/golang_worktool/</guid>
       <description>
 
-&lt;blockquote&gt;
-&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;h2 id=&#34;批量bug导入:9e88b0463a278732711ab851a4acb3d9&#34;&gt;批量Bug导入&lt;/h2&gt;
 
 &lt;p&gt;Bugzilla系统可以通过&lt;a href=&#34;https://en.wikipedia.org/wiki/XML-RPC&#34;&gt;XML-RPC&lt;/a&gt;协议将bug提交到系统中。golang中没有XML-RPC的库，所以只有寻找相关开源代码。从Github中找到&lt;a href=&#34;https://github.com/kolo/xmlrpc&#34;&gt;xmlrpc库&lt;/a&gt;。由于需要批量导入，所以可以将bug统一收集到excel中，最后读取excel文件将所有bug导入。找到处理excel的开源库：&lt;a href=&#34;https://github.com/tealeg/xlsx&#34;&gt;xlsx&lt;/a&gt;&lt;/p&gt;

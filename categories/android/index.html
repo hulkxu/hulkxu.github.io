@@ -66,7 +66,7 @@
     <div class="article-header light-gray"><h1>#Android</h1></div>
     
     <div class="summary">
-      <h2><a href="http://sensitivehulk.com/post/golang/androidM_flashlight_solution/">Android的闪光灯解决方案（Android M） </a></h2>
+      <h2><a href="http://sensitivehulk.com/post/android/androidM_flashlight_solution/">Android的闪光灯解决方案（Android M） </a></h2>
       <div class="meta">
         May 13, 2016 &nbsp;
         
@@ -80,12 +80,12 @@
         
       </div>
       
-      <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</p>
+      <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</p>
 
     </div>
     
     <div class="summary">
-      <h2><a href="http://sensitivehulk.com/post/golang/android_flashlight_solution/">Android的闪光灯解决方案（Android L） </a></h2>
+      <h2><a href="http://sensitivehulk.com/post/android/android_flashlight_solution/">Android的闪光灯解决方案（Android L） </a></h2>
       <div class="meta">
         May 13, 2016 &nbsp;
         
@@ -99,12 +99,12 @@
         
       </div>
       
-      <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</p>
+      <p>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</p>
 
     </div>
     
     <div class="summary">
-      <h2><a href="http://sensitivehulk.com/post/golang/android_libskia_crash/">Android获取图片缩略图导致libskia crash </a></h2>
+      <h2><a href="http://sensitivehulk.com/post/android/android_libskia_crash/">Android获取图片缩略图导致libskia crash </a></h2>
       <div class="meta">
         Aug 15, 2014 &nbsp;
         
@@ -131,7 +131,7 @@
   <footer role="contentinfo">
     <div style="text-align:center;">
       <img src="/images/profile.png" width="64" height="64"><br>
-      <a href="/about">Written by Sensitive Hulk</a>
+      Written by <a href="/about">Sensitive Hulk</a>
     </div>
   </footer>
 

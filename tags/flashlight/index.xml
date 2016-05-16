@@ -11,15 +11,11 @@
     
     <item>
       <title>Android的闪光灯解决方案（Android M）</title>
-      <link>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</link>
+      <link>http://sensitivehulk.com/post/android/androidM_flashlight_solution/</link>
       <pubDate>Fri, 13 May 2016 15:35:50 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</guid>
+      <guid>http://sensitivehulk.com/post/android/androidM_flashlight_solution/</guid>
       <description>
-
-&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android-m上打开闪光灯的方式:01e72f00a80225a8db4feb884357235d&#34;&gt;Android M上打开闪光灯的方式&lt;/h2&gt;
 
@@ -142,15 +138,11 @@ status_t FlashControlByDevNode::writeFlashDevNode(int value)
     
     <item>
       <title>Android的闪光灯解决方案（Android L）</title>
-      <link>http://sensitivehulk.com/post/golang/android_flashlight_solution/</link>
+      <link>http://sensitivehulk.com/post/android/android_flashlight_solution/</link>
       <pubDate>Fri, 13 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/android_flashlight_solution/</guid>
+      <guid>http://sensitivehulk.com/post/android/android_flashlight_solution/</guid>
       <description>
-
-&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android-l上打开闪光灯的方式:a4d4ce96910111937db23fc566e850cd&#34;&gt;Android L上打开闪光灯的方式&lt;/h2&gt;
 

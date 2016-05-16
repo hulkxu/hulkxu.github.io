@@ -15,7 +15,7 @@
   <meta name="msvalidate.01" content="4CFABCE200222542A02923B72A785CD3" />
   <meta name="baidu-site-verification" content="Tva5Gihnsn" />
   
-  <link rel="canonical" href="http://sensitivehulk.com/post/golang/android_flashlight_solution/"/>
+  <link rel="canonical" href="http://sensitivehulk.com/post/android/android_flashlight_solution/"/>
 
   
   <link rel="stylesheet" href="/css/sanitize.css">
@@ -78,12 +78,23 @@
         
       </div>
     </div>
+    
+    <strong>在Android中，一直没有标准的闪光灯接口。在Android M之前，打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</strong>
+    
+    <div id="toc">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#android-l上打开闪光灯的方式:a4d4ce96910111937db23fc566e850cd">Android L上打开闪光灯的方式</a></li>
+<li><a href="#android-l实现闪光灯的节点模式:a4d4ce96910111937db23fc566e850cd">Android L实现闪光灯的节点模式</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+    
     <article>
       
-
-<p><strong>在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。</strong></p>
-
-<p><strong>一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。</strong></p>
 
 <h2 id="android-l上打开闪光灯的方式:a4d4ce96910111937db23fc566e850cd">Android L上打开闪光灯的方式</h2>
 
@@ -206,7 +217,7 @@ publishBinderService(&quot;hardware&quot;, mLegacyFlashlightHack);
       <span class="previous">&larr; <a href="http://sensitivehulk.com/post/golang/web_interactive/" rel="prev">golang的web交互</a></span>
     
     
-      <span class="next"><a href="http://sensitivehulk.com/post/golang/androidM_flashlight_solution/" rel="next">Android的闪光灯解决方案（Android M）</a> &rarr;</span>
+      <span class="next"><a href="http://sensitivehulk.com/post/android/androidM_flashlight_solution/" rel="next">Android的闪光灯解决方案（Android M）</a> &rarr;</span>
     
   </nav>
 
@@ -215,7 +226,7 @@ publishBinderService(&quot;hardware&quot;, mLegacyFlashlightHack);
   <footer role="contentinfo">
     <div style="text-align:center;">
       <img src="/images/profile.png" width="64" height="64"><br>
-      <a href="/about">Written by Sensitive Hulk</a>
+      Written by <a href="/about">Sensitive Hulk</a>
     </div>
   </footer>
 

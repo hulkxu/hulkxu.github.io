@@ -17,10 +17,6 @@
       <guid>http://sensitivehulk.com/post/golang/web_interactive/</guid>
       <description>
 
-&lt;blockquote&gt;
-&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;h2 id=&#34;查看web的数据交互:6fd962745850b05113455789d534250f&#34;&gt;查看web的数据交互&lt;/h2&gt;
 
 &lt;p&gt;若需要golang实现浏览器里的一些操作,如登录,查询等操作.需要详细的指导客户端与服务器详细的交互数据。chrome浏览器的开发者工具可以很详细的查看。&lt;/p&gt;
@@ -31,7 +27,7 @@
 
 &lt;p&gt;&lt;img src=&#34;http://sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
+&lt;h2 id=&#34;对应的golang代码:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;添加表单数据&lt;/p&gt;
@@ -92,10 +88,6 @@ if response.StatusCode == 200 {
       
       <guid>http://sensitivehulk.com/post/golang/golang_worktool/</guid>
       <description>
-
-&lt;blockquote&gt;
-&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;批量bug导入:9e88b0463a278732711ab851a4acb3d9&#34;&gt;批量Bug导入&lt;/h2&gt;
 
@@ -163,10 +155,6 @@ for e := buglist.Front(); e != nil; e = e.Next() {
       
       <guid>http://sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
       <description>
-
-&lt;blockquote&gt;
-&lt;p&gt;golang也可以实现面向对象编程。主要是通过struct和interface来实现的。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;继承:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;继承&lt;/h2&gt;
 

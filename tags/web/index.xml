@@ -17,10 +17,6 @@
       <guid>http://sensitivehulk.com/post/golang/web_interactive/</guid>
       <description>
 
-&lt;blockquote&gt;
-&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;h2 id=&#34;查看web的数据交互:6fd962745850b05113455789d534250f&#34;&gt;查看web的数据交互&lt;/h2&gt;
 
 &lt;p&gt;若需要golang实现浏览器里的一些操作,如登录,查询等操作.需要详细的指导客户端与服务器详细的交互数据。chrome浏览器的开发者工具可以很详细的查看。&lt;/p&gt;
@@ -31,7 +27,7 @@
 
 &lt;p&gt;&lt;img src=&#34;http://sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
+&lt;h2 id=&#34;对应的golang代码:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;添加表单数据&lt;/p&gt;

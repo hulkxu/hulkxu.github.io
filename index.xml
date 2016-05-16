@@ -11,15 +11,11 @@
     
     <item>
       <title>Android的闪光灯解决方案（Android M）</title>
-      <link>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</link>
+      <link>http://sensitivehulk.com/post/android/androidM_flashlight_solution/</link>
       <pubDate>Fri, 13 May 2016 15:35:50 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/androidM_flashlight_solution/</guid>
+      <guid>http://sensitivehulk.com/post/android/androidM_flashlight_solution/</guid>
       <description>
-
-&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android-m上打开闪光灯的方式:01e72f00a80225a8db4feb884357235d&#34;&gt;Android M上打开闪光灯的方式&lt;/h2&gt;
 
@@ -142,15 +138,11 @@ status_t FlashControlByDevNode::writeFlashDevNode(int value)
     
     <item>
       <title>Android的闪光灯解决方案（Android L）</title>
-      <link>http://sensitivehulk.com/post/golang/android_flashlight_solution/</link>
+      <link>http://sensitivehulk.com/post/android/android_flashlight_solution/</link>
       <pubDate>Fri, 13 May 2016 14:35:50 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/android_flashlight_solution/</guid>
+      <guid>http://sensitivehulk.com/post/android/android_flashlight_solution/</guid>
       <description>
-
-&lt;p&gt;&lt;strong&gt;在Android中，一直没有标准的闪光灯接口。在Android M之前，手电筒应用打开闪光灯都是通过打开Camera设备来实现的，这样与Camera相关应用是有冲突的。在Android M中，新增了CameraManager的setTorchMode方法来直接打开闪光灯模块，这样与其他使用Camera的应用没有冲突，但这种方式实际上还是会open cameras设备，对sensor上电，功耗还是比较大。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一种比较简单的，快速的，功耗较低的方式是将闪光灯设备做成一个设备节点，通过读写该节点来打开关闭闪光灯，彻底与Camera区分开来，当然在两者在竞争该设备时，需要在framework里做好控制。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;android-l上打开闪光灯的方式:a4d4ce96910111937db23fc566e850cd&#34;&gt;Android L上打开闪光灯的方式&lt;/h2&gt;
 
@@ -254,10 +246,6 @@ publishBinderService(&amp;quot;hardware&amp;quot;, mLegacyFlashlightHack);
       <guid>http://sensitivehulk.com/post/golang/web_interactive/</guid>
       <description>
 
-&lt;blockquote&gt;
-&lt;p&gt;工作中有一些重复工作需要在网页上操作,golang有很好的net相关操作库,可以满足需求。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;h2 id=&#34;查看web的数据交互:6fd962745850b05113455789d534250f&#34;&gt;查看web的数据交互&lt;/h2&gt;
 
 &lt;p&gt;若需要golang实现浏览器里的一些操作,如登录,查询等操作.需要详细的指导客户端与服务器详细的交互数据。chrome浏览器的开发者工具可以很详细的查看。&lt;/p&gt;
@@ -268,7 +256,7 @@ publishBinderService(&amp;quot;hardware&amp;quot;, mLegacyFlashlightHack);
 
 &lt;p&gt;&lt;img src=&#34;http://sensitivehulk.com/media/login_info2.png&#34; alt=&#34;登录信息&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;对应的golang代码为:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码为：&lt;/h2&gt;
+&lt;h2 id=&#34;对应的golang代码:6fd962745850b05113455789d534250f&#34;&gt;对应的golang代码&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;添加表单数据&lt;/p&gt;
@@ -329,10 +317,6 @@ if response.StatusCode == 200 {
       
       <guid>http://sensitivehulk.com/post/golang/golang_worktool/</guid>
       <description>
-
-&lt;blockquote&gt;
-&lt;p&gt;日常工作中一些重复的工作做成工具比较方便，而且更有效率。在之前工作中都是用python做，python语言简单，一些开源库也多，简单迅速。但当这些工具给到别人时就比较麻烦，必须注明依赖的python版本，要安装哪些包才能最后成功运行。当了解到golang的优点后，尝试用golang来制作这些工具。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;批量bug导入:9e88b0463a278732711ab851a4acb3d9&#34;&gt;批量Bug导入&lt;/h2&gt;
 
@@ -400,10 +384,6 @@ for e := buglist.Front(); e != nil; e = e.Next() {
       
       <guid>http://sensitivehulk.com/post/golang/Golang_object-oriented_thinking_and_Implementation/</guid>
       <description>
-
-&lt;blockquote&gt;
-&lt;p&gt;golang也可以实现面向对象编程。主要是通过struct和interface来实现的。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;继承:132e4b9b48dc618261cb0fdc11cb083c&#34;&gt;继承&lt;/h2&gt;
 
@@ -526,7 +506,7 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
       
       <guid>http://sensitivehulk.com/about/</guid>
       <description>&lt;ul&gt;
-&lt;li&gt;2011年毕业与西安电子科技大学&lt;/li&gt;
+&lt;li&gt;2011年毕业于西安电子科技大学&lt;/li&gt;
 &lt;li&gt;现工作于上海一家手机芯片公司，主业在Android(MultiMedia)，关注OpenSouce，对Golang感兴趣。&lt;/li&gt;
 &lt;li&gt;平时爱好篮球。有几件想做的事：学好摄像，练好书法。&lt;/li&gt;
 &lt;li&gt;联系我：shxujian@outlook.com&lt;/li&gt;
@@ -536,13 +516,11 @@ func GetWebSourceListSupportItemurl() []IWebOpration {
     
     <item>
       <title>Android获取图片缩略图导致libskia crash</title>
-      <link>http://sensitivehulk.com/post/golang/android_libskia_crash/</link>
+      <link>http://sensitivehulk.com/post/android/android_libskia_crash/</link>
       <pubDate>Fri, 15 Aug 2014 16:57:54 +0800</pubDate>
       
-      <guid>http://sensitivehulk.com/post/golang/android_libskia_crash/</guid>
+      <guid>http://sensitivehulk.com/post/android/android_libskia_crash/</guid>
       <description>
-
-&lt;p&gt;最近项目中Camera2模块很多关于libskia库的native crash。Camera模块中用到libskia库的主要有图片解析（通过bitmap），获取缩略图（通过Images.Thumbnails.getThumbnail），从调用栈看与getThrumbnail相关。&lt;/p&gt;
 
 &lt;h2 id=&#34;android的两种缩略图:8bb097f1e14e3d40ac6965d7d7aac5df&#34;&gt;Android的两种缩略图&lt;/h2&gt;
 
@@ -663,7 +641,7 @@ c = cr.query(blockingUri, PROJECTION, null, null, null);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-&lt;li&gt;问题的根本原因是保存大缩略图时是先插入数据库数据，再保存实际文件数据。当有多个线程在同时调用Images.Thumbnails.getThumbnail方法时就会导致该问题，如下图：
+&lt;li&gt;&lt;strong&gt;问题的根本原因是保存大缩略图时是先插入数据库数据，再保存实际文件数据。当有多个线程在同时调用Images.Thumbnails.getThumbnail方法时就会导致该问题，如下图：&lt;/strong&gt;
 &lt;img src=&#34;http://sensitivehulk.com/media/multi_task_getthumbnail.png&#34; alt=&#34;调用流程图&#34; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
