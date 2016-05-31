@@ -6,8 +6,35 @@
     <description>Recent content in Development on SENSITIVEHULK.COM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 13 May 2016 15:35:50 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 May 2016 13:52:50 +0800</lastBuildDate>
     <atom:link href="http://sensitivehulk.com/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>golang中的Excel操作</title>
+      <link>http://sensitivehulk.com/post/golang/golang_excel/</link>
+      <pubDate>Tue, 31 May 2016 13:52:50 +0800</pubDate>
+      
+      <guid>http://sensitivehulk.com/post/golang/golang_excel/</guid>
+      <description>
+
+&lt;h2 id=&#34;xlsx:e83e574b9618e02ac20025f3ea486990&#34;&gt;xlsx&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/tealeg/xlsx&#34;&gt;xlsx&lt;/a&gt;是一个库，能简单使用XML格式读取和写入&lt;strong&gt;Excel2013&lt;/strong&gt;文件。&lt;/li&gt;
+&lt;li&gt;目前的功能较少，但还在持续更新中。若需求只是对excel进行简单的&lt;strong&gt;读取&lt;/strong&gt;,或者将结果&lt;strong&gt;保存到新excel文件中&lt;/strong&gt;，这个库已经足够，而且读写性能不错，与操作系统无关。&lt;/li&gt;
+&lt;li&gt;这个库有一个比较头疼的问题是，若对已有的excel文件进行写入操作，保存时会将原文件中的许多信息丢掉，比如公式，图表等等，&lt;a href=&#34;https://github.com/tealeg/xlsx/issues/133&#34;&gt;见这里&lt;/a&gt;。所以对已有文件的写入保存这个库就不太适合。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;excel:e83e574b9618e02ac20025f3ea486990&#34;&gt;excel&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/aswjh/excel&#34;&gt;excel&lt;/a&gt;是基于Windows COM组件的一个读写excel库。与Windows COM组件库交互的不是c语言，而是
+golang库&lt;a href=&#34;https://github.com/go-ole/go-ole&#34;&gt;GO OLE&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;其功能丰富，根据COM组件的MSDN文档，可以实现的功能非常多。当然只能运行在Windows操作系统上。&lt;/li&gt;
+&lt;li&gt;所以若对读写excel需求较高，可以尝试使用该库。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Android的闪光灯解决方案（Android M）</title>

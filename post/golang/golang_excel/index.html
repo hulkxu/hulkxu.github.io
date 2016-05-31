@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    golang中的Excel操作 | SENSITIVEHULK.COM
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+  <meta name="msvalidate.01" content="4CFABCE200222542A02923B72A785CD3" />
+  <meta name="baidu-site-verification" content="Tva5Gihnsn" />
+  
+  <link rel="canonical" href="http://sensitivehulk.com/post/golang/golang_excel/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="/font-awesome-4.6.3/css/font-awesome.min.css">
+
+  
+  
+  <link href="http://sensitivehulk.com/index.xml" rel="alternate" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+  <link href="http://sensitivehulk.com/index.xml" rel="feed" type="application/rss+xml" title="SENSITIVEHULK.COM" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://sensitivehulk.com/">SENSITIVEHULK.COM</a></h1>
+        <h2>I would like to be a layer 3 switch.</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          <li><a href="/about"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;About</a></li>
+          
+          
+          <li><a href="https://github.com/hulkxu" target="_blank"><i class="fa fa-github-alt"></i>&nbsp;GitHub</a></li>
+          <li><a href="http://sensitivehulk.com/index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i>&nbsp;RSS</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </header>
+
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>golang中的Excel操作</h1>
+      <div class="meta">
+        May 31, 2016 &nbsp;
+        
+          #<a href="/tags/development">Development</a>&nbsp;
+        
+          #<a href="/tags/golang">golang</a>&nbsp;
+        
+          #<a href="/tags/excel">Excel</a>&nbsp;
+        
+      </div>
+    </div>
+    
+    <div id="bodydescpriton">
+    <i class="fa fa-hand-o-right fa-2x" aria-hidden="true"></i> 
+    <strong>日常中的许多工具，都需要从excel中读写数据，本文介绍golang中操作Excel的几个开源库。</strong>
+    </div>
+    
+    <div id="toc">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#xlsx:e83e574b9618e02ac20025f3ea486990">xlsx</a></li>
+<li><a href="#excel:e83e574b9618e02ac20025f3ea486990">excel</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+    
+    <article>
+      
+
+<h2 id="xlsx:e83e574b9618e02ac20025f3ea486990">xlsx</h2>
+
+<ul>
+<li><a href="https://github.com/tealeg/xlsx">xlsx</a>是一个库，能简单使用XML格式读取和写入<strong>Excel2013</strong>文件。</li>
+<li>目前的功能较少，但还在持续更新中。若需求只是对excel进行简单的<strong>读取</strong>,或者将结果<strong>保存到新excel文件中</strong>，这个库已经足够，而且读写性能不错，与操作系统无关。</li>
+<li>这个库有一个比较头疼的问题是，若对已有的excel文件进行写入操作，保存时会将原文件中的许多信息丢掉，比如公式，图表等等，<a href="https://github.com/tealeg/xlsx/issues/133">见这里</a>。所以对已有文件的写入保存这个库就不太适合。</li>
+</ul>
+
+<h2 id="excel:e83e574b9618e02ac20025f3ea486990">excel</h2>
+
+<ul>
+<li><a href="https://github.com/aswjh/excel">excel</a>是基于Windows COM组件的一个读写excel库。与Windows COM组件库交互的不是c语言，而是
+golang库<a href="https://github.com/go-ole/go-ole">GO OLE</a>。</li>
+<li>其功能丰富，根据COM组件的MSDN文档，可以实现的功能非常多。当然只能运行在Windows操作系统上。</li>
+<li>所以若对读写excel需求较高，可以尝试使用该库。</li>
+</ul>
+
+      
+      
+      
+    </article>
+    
+ <aside><div id="disqus_thread"></div></aside>
+
+<script type="text/javascript">
+     
+
+    var disqus_shortname = 'sensitivehulk';;
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://sensitivehulk.com/post/android/androidM_flashlight_solution/" rel="prev">Android的闪光灯解决方案（Android M）</a></span>
+    
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="/images/profile.png" width="64" height="64"><br>
+      Written by <a href="/about">Sensitive Hulk</a>
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=4436559193796244067' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script>
+
+</body>
+</html>
+
